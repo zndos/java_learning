@@ -4,6 +4,8 @@ import java.io.*;
 
 public class main {
     public static void main(String[] args) throws IOException {
+ 	/*Программа принимает на вход число и определяет является ли число палиндромом.
+        * Если число является палиндромом првоеряет квадрат этого числа*/
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

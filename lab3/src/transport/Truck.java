@@ -26,4 +26,10 @@ public class Truck extends Vehicle{
     public int show_weight() {
         return this.weight;
     }
+
+    public String ToString(){
+        String result = this.show_brend() +" "+this.show_max_speed()+" "+this.show_height()+" "+this.show_weight() ;
+        return result;
+    }
+
 }

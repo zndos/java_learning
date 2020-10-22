@@ -19,5 +19,13 @@ public class Car extends Vehicle {
         this.fm = new Radio(current_station,status);
     }
 
+    public String show_fm(){
+        return this.fm.show_station();
+    }
+
+    public String ToString(){
+        String result = this.show_brend() +" "+this.show_max_speed()+" "+this.show_fm();
+        return result;
+    }
 
 }

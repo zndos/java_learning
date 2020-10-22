@@ -3,7 +3,7 @@
 package car_staff;
 public class Radio {
 
-    String current_station;
+    private String current_station;
     int status;//статус работы (вкл/выкл)
 
 /*Конструктор*/
@@ -22,4 +22,9 @@ public class Radio {
         this.status=1;
         System.out.print("Music time!");
     }
+
+    public String show_station(){
+        return this.current_station;
+    }
+
 }

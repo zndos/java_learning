@@ -47,4 +47,8 @@ public class Dps {
         }
     }
 
+    public int show_dps_id(){
+        return this.dps_id;
+    }
+
 }

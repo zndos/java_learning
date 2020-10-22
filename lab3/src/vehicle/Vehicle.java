@@ -27,4 +27,11 @@ public abstract class Vehicle {
         System.out.println("Brrrrr ,i am moving!");
     }
 
+    public String ToString(){
+        String result = this.brend +" "+this.max_speed ;
+        return result;
+    }
+
+
+
 }

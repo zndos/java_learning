@@ -1,1 +1,5 @@
-id|brend|max_speed|dps_id|status
+1 BMW 100 Vesti FM 2 pass
+4 kamaz 25 50 50 2 pass
+3 BMW 100 Vesti FM 2 pass
+4 reno 30 Dacha FM 2 pass
+6 kamaz 25 50 50 2 pass

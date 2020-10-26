@@ -4,6 +4,7 @@ package road_transp_control;
 
 import transport.Car;
 import transport.Truck;
+import vehicle.Vehicle;
 
 public class Dps {
     private int dps_id;
@@ -25,6 +26,9 @@ public class Dps {
         this.allowable_height=height;
         this.allowable_weight=weight;
     }
+
+
+
 
     public String pass(Car object){
         /*метод решающий пропустить машину или нет , основываясь на скорости тс*/

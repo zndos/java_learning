@@ -1,7 +1,6 @@
 package FileSystem;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public class FileManager {
 
@@ -18,6 +17,9 @@ public class FileManager {
 
     // метод демонстрирует переход на указанный символ
 
+    public String show_path(){
+        return this.path;
+    }
 
     // этот метод читает файл и выводит его содержимое
     public String read() throws IOException {
@@ -69,5 +71,21 @@ public class FileManager {
         // закрываем файл, после чего данные записываемые данные попадут в файл
         file.close();
     }
+
+    public int count() throws IOException {
+        File myFile = new File(this.path);
+        FileReader fileReader = new FileReader(myFile);
+        LineNumberReader lineNumberReader = new LineNumberReader(fileReader);
+
+        int lineNumber = 0;
+
+        while (lineNumberReader.readLine() != null) {
+            lineNumber++;
+        }
+        lineNumberReader.close();
+        return lineNumber;
+    }
+
+
 
 }

@@ -16,35 +16,47 @@ public class main {
     public static void main(String[] args) throws IOException {
 
 
-        String db_path = "F:\\java_learning\\java_learning\\lab3\\db.txt";
-        String log_path = "F:\\java_learning\\java_learning\\lab3\\logs.txt";
-        String username;
+        String db_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\db.txt";
+        String log_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\logs.txt";
+        String config_path ="C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\Property.ini";
+
         Boolean logging_flag = false;
+        String username="Noname";
         Properties property = new Properties();
-        FileManager file = new FileManager(db_path);
 
         /*Работаем с файлом конфигурации
          * Достаем из него настройки */
-        FileInputStream fis;
-        fis = new FileInputStream("F:\\java_learning\\java_learning\\lab3\\Property.ini");
-        property.load(fis);
-        username = property.getProperty("username");
-        logging_flag = Boolean.parseBoolean(property.getProperty("logging_flag"));
-        System.out.println(" «Добро пожаловать —  " + username);
+        try {
+            FileInputStream fis;
+            fis = new FileInputStream(config_path);
+            property.load(fis);
+            username = property.getProperty("username");
+            logging_flag = Boolean.parseBoolean(property.getProperty("logging_flag"));
+            System.out.println(" «Добро пожаловать —  " + username);
+        }catch (Exception e){
+            System.out.println("Property file error");
+        }
+
+
 
         /*Работаем с файлом БД
          * Если такого файла нет , то создаем его */
+        FileManager file = new FileManager(db_path);
         DbManager db = new DbManager(file);
 
         /*Работаем с файлом логирования
          * Если такого файла нет , то создаем его */
-        if (logging_flag) {
-            FileManager logs_file = new FileManager(log_path);
-            LogsManager logs = new LogsManager(logs_file, username);
+        FileManager logs_file = new FileManager(log_path);
+        LogsManager logs = new LogsManager(logs_file, username);
+
+        /*начинаем ввести записи о работе программы*/
+        if (logging_flag){
+            logs.start();
         }
-
-
         Boolean flag = true;
+
+
+
         while (flag) {
             System.out.println("////////////////////////////////Меню////////////////////////////////\n" +
                     "1.Считать данные из бд\n"+
@@ -63,14 +75,26 @@ public class main {
                         Scanner scn = new Scanner(System.in);
                         if (scn.hasNextInt()) {
                             int read_id = scn.nextInt();
-                            if (read_id==0){
-                                System.out.println("-------------Данные об объектах-------------\n" + file.read());
+                            if (read_id == 0) {
+                                try {
+                                    if (logging_flag) {
+                                        logs.read();
+                                    }
+                                    System.out.println("-------------Данные об объектах-------------\n" + file.read());
+                                } catch (Exception read_error) {
+                                    logs.error("Ошибка чтения");
+                                }
+                            } else {
+                                try {
+                                    if (logging_flag) {
+                                        logs.read();
+                                    }
+                                    System.out.println("Данные об элементе: " + db.getData(read_id));
+                                } catch (Exception read_1elem_error) {
+                                    logs.error("Ошибка чтения");
+                                }
                             }
-                            else{
-                                System.out.println("Данные об элементе: "+db.getData(read_id));
-                            }
-                        }
-                        else{
+                        } else {
                             System.out.println("Вводи число");
                             break;
                         }
@@ -78,48 +102,79 @@ public class main {
                     case 2:
                         /*2.Запись в базу данных*/
                         Dps big_post = new Dps(2, 100, 100, 100);
-
                         Car lastochka = new Car();
                         Car galchonok = new Car("reno", 30, "Dacha FM", 1);
                         Truck big_muck = new Truck();
                         Truck big_tasty = new Truck("kamaz", 25, 50, 50);
-
-                        db.add(lastochka,big_post);
-                        db.add(galchonok,big_post);
-                        db.add(big_muck,big_post);
-                        db.add(big_tasty,big_post);
-                        if (logging_flag) {
-
+                        try {
+                            db.add(lastochka, big_post);
+                            db.add(galchonok, big_post);
+                            db.add(big_muck, big_post);
+                            db.add(big_tasty, big_post);
+                            if (logging_flag) {
+                                logs.add(lastochka);
+                                logs.add(galchonok);
+                                logs.add(big_muck);
+                                logs.add(big_tasty);
+                            }
+                        } catch (Exception add_error) {
+                            if (logging_flag) {
+                                logs.error("Ошибка добавления элемента из бд");
+                            }
                         }
-
                         break;
                     case 3:
                         /*3. Изменить запись */
                         System.out.print("Введите номер изменяемого обьекта: ");
                         Scanner scn_change = new Scanner(System.in);
-                        String new_line="alalalalaa";//TODO нормальную замену
-
-                        db.change(scn_change.nextInt(), new_line);
+                        if (scn_change.hasNextInt()) {
+                            String new_line = "alalalalaa";//TODO нормальную замену
+                            try {
+                                db.change(scn_change.nextInt(), new_line);
+                                if (logging_flag) {
+                                    logs.change(scn_change.nextInt());
+                                }
+                            } catch (Exception change_error) {
+                                if (logging_flag) {
+                                    logs.error("Ошибка изменения элемента в бд");
+                                }
+                            }
+                        } else {
+                            System.out.println("Введи число");
+                        }
 
                         break;
                     case 4:
                         /*4.Удалить запись*/
                         System.out.print("Введите номер удаляемого обьекта: ");
                         Scanner scn_del = new Scanner(System.in);
-                        db.del(scn_del.nextInt());
 
+                        if (scn_del.hasNextInt()) {
+                            try {
+                                int a = scn_del.nextInt();
+                                db.del(a);
+                                if (logging_flag) {
+                                    logs.del(a);
+                                }
+                            } catch (Exception del_exp) {
+                                if (logging_flag) {
+                                    logs.error("Ошибка удаления элемента из бд");
+                                }
+
+                            }
+                        } else {
+                            System.out.println("Введи число");
+                        }
                         break;
                     case 5:
                         /*5.Выход*/
                         flag = false;
                         if (logging_flag) {
-                            FileManager logs_file = new FileManager("logs.txt");
-                            LocalTime end_time = LocalTime.now();
-                            logs_file.write(end_time.getHour() + ":" + end_time.getMinute() + ":" + end_time.getSecond() + " Конец работы с БД" + "\n");
+                            logs.finish();
                         }
                         break;
 
-            }
+                }
             } else {
                 System.out.println("Вводи число");
                 continue;

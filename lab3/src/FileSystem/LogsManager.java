@@ -51,23 +51,15 @@ public class LogsManager {
 
     }
 
-    public void change(Car transport) throws IOException {
+    public void change(int ch_id) throws IOException {
         LocalTime time = LocalTime.now();
-        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Изменен обьект "+ transport.getClass()+"\n");
-    }
-    public void change(Truck transport) throws IOException {
-        LocalTime time = LocalTime.now();
-        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Изменен обьект "+ transport.getClass()+"\n");
+        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Изменен обьект под номером "+ String.valueOf(ch_id)+"\n");
     }
 
 
-    public void del(Car transport) throws IOException {
+    public void del(int del_id) throws IOException {
         LocalTime time = LocalTime.now();
-        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Удален обьект "+ transport.getClass()+"\n");
-    }
-    public void del(Truck transport) throws IOException {
-        LocalTime time = LocalTime.now();
-        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Удален обьект "+ transport.getClass()+"\n");
+        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Удален обьект под номером "+ String.valueOf(del_id)+"\n");
     }
 
     public void read() throws IOException {

@@ -13,6 +13,8 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class main {
+
+    
     public static void main(String[] args) throws IOException {
 
 
@@ -128,9 +130,11 @@ public class main {
                         System.out.print("Введите номер изменяемого обьекта: ");
                         Scanner scn_change = new Scanner(System.in);
                         if (scn_change.hasNextInt()) {
-                            String new_line = "alalalalaa";//TODO нормальную замену
+
                             try {
-                                db.change(scn_change.nextInt(), new_line);
+                                int change_id = scn_change.nextInt();
+                                String new_line =String.valueOf(change_id)+"new information";//TODO нормальную замену
+                                db.change(change_id, new_line);
                                 if (logging_flag) {
                                     logs.change(scn_change.nextInt());
                                 }

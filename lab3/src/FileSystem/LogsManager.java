@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.time.LocalTime;
 
 public class LogsManager {
-    //TODO LogsManager
     private  FileManager file;
     private String username;
 

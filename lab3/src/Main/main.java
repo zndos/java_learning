@@ -51,7 +51,7 @@ public class main {
         FileManager logs_file = new FileManager(log_path);
         LogsManager logs = new LogsManager(logs_file, username);
 
-        /*начинаем ввести записи о работе программы*/
+        /*начинаем вести записи о работе программы*/
         if (logging_flag){
             logs.start();
         }
@@ -121,7 +121,7 @@ public class main {
                             }
                         } catch (Exception add_error) {
                             if (logging_flag) {
-                                logs.error("Ошибка добавления элемента из бд");
+                                logs.error("Ошибка добавления элемента в бд");
                             }
                         }
                         break;

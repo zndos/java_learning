@@ -18,9 +18,9 @@ public class main {
     public static void main(String[] args) throws IOException {
 
 
-        String db_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\db.txt";
-        String log_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\logs.txt";
-        String config_path ="C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\Property.ini";
+        String db_path = "\\db.txt";
+        String log_path = "\\logs.txt";
+        String config_path ="\\Property.ini";
 
         Boolean logging_flag = false;
         String username="Noname";

@@ -1,5 +1,6 @@
 package FileSystem;
 
+import road_transp_control.Dps;
 import transport.Car;
 import transport.Truck;
 
@@ -17,7 +18,6 @@ public class LogsManager {
         File new_file = new File(file.show_path());
         if (new_file.exists()) {
             System.out.println("Файлов логов готова к работе");
-
         } else {
             if (new_file.createNewFile()) {
                 System.out.println("Создан файл логов");
@@ -35,7 +35,7 @@ public class LogsManager {
 
     public void finish() throws IOException {
         LocalTime time = LocalTime.now();
-        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Конец работы с БД"+" пользователь: "+this.username+"\n");
+        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Конец работы с БД"+" пользователь: "+this.username+"\n \n");
     }
 
     public void add(Car transport) throws IOException {
@@ -49,6 +49,14 @@ public class LogsManager {
         this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Добавлен обьект "+ transport.getClass()+"\n");
 
     }
+
+    public void add(Dps dps_post) throws IOException {
+        LocalTime time = LocalTime.now();
+        this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond() + " Добавлен обьект "+ dps_post.getClass()+"\n");
+
+    }
+
+
 
     public void change(int ch_id) throws IOException {
         LocalTime time = LocalTime.now();
@@ -70,7 +78,6 @@ public class LogsManager {
         LocalTime time = LocalTime.now();
         this.file.write(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond()+"получена ошибка"+ error_info);
     }
-
 
 
 }

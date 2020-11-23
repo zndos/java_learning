@@ -14,7 +14,7 @@ public class Car extends Vehicle {
         this.fm = new Radio();
     }
 
-    public Car(String brend, int max_speed,String current_station,int status){
+    public Car(String brend, int max_speed,String current_station ,int status){
         super(brend,max_speed);
         this.fm = new Radio(current_station,status);
     }

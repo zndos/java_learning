@@ -1,5 +1,6 @@
 package Main;
 
+import Creators.Creator;
 import FileSystem.DbManager;
 import FileSystem.FileManager;
 import FileSystem.LogsManager;
@@ -18,9 +19,9 @@ public class main {
     public static void main(String[] args) throws IOException {
 
 
-        String db_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\db.txt";
-        String log_path = "C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\logs.txt";
-        String config_path ="C:\\Users\\Admin\\Documents\\GitHub\\java_learning\\lab3\\Property.ini";
+        String db_path = "F:\\java_learning\\java_learning\\lab3\\db.txt";
+        String log_path = "F:\\java_learning\\java_learning\\lab3\\logs.txt";
+        String config_path ="F:\\java_learning\\java_learning\\lab3\\Property.ini";
 
         Boolean logging_flag = false;
         String username="Noname";
@@ -103,27 +104,24 @@ public class main {
                         break;
                     case 2:
                         /*2.Запись в базу данных*/
-                        Dps big_post = new Dps(2, 100, 100, 100);
-                        Car lastochka = new Car();
-                        Car galchonok = new Car("reno", 30, "Dacha FM", 1);
-                        Truck big_muck = new Truck();
-                        Truck big_tasty = new Truck("kamaz", 25, 50, 50);
-                        try {
-                            db.add(lastochka, big_post);
-                            db.add(galchonok, big_post);
-                            db.add(big_muck, big_post);
-                            db.add(big_tasty, big_post);
-                            if (logging_flag) {
-                                logs.add(lastochka);
-                                logs.add(galchonok);
-                                logs.add(big_muck);
-                                logs.add(big_tasty);
-                            }
-                        } catch (Exception add_error) {
-                            if (logging_flag) {
-                                logs.error("Ошибка добавления элемента в бд");
-                            }
+                        Creator creator = new Creator();
+
+                        Dps dps_post = creator.dpsCreator();
+                        logs.add(dps_post);
+
+                        System.out.println("Что просканирует пост дпс машину или грузовик? (0- машина , 1- грузовик )");
+                        Scanner choice_scn = new Scanner(System.in);
+                        if (choice_scn.nextInt()==0) {
+                            Car car = creator.carCreator();
+                            logs.add(car);
+                            db.add(car, dps_post);
                         }
+                        else{
+                            Truck truck = creator.truckCreator();
+                            logs.add(truck);
+                            db.add(truck, dps_post);
+                        }
+
                         break;
                     case 3:
                         /*3. Изменить запись */

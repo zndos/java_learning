@@ -164,7 +164,6 @@ public class main {
                                 if (logging_flag) {
                                     logs.error("Ошибка удаления элемента из бд");
                                 }
-
                             }
                         } else {
                             System.out.println("Введи число");

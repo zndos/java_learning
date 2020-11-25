@@ -1,2 +1,0 @@
-id brand speed radio/height/weight status 
-1 bmw 1000 100 213 0 stop

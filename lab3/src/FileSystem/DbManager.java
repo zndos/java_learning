@@ -35,8 +35,8 @@ public class DbManager {
                     System.out.println("Ошибка создания  базы данных");
                 }
             }
-        }catch(Exception  e ) {
-            
+        } catch (Exception e) {
+            System.out.println("Ошибка");
         }
 
     }
@@ -51,21 +51,27 @@ public class DbManager {
         List<String> fileContent = new ArrayList<>(Files.readAllLines(Path.of(this.file.show_path()), StandardCharsets.UTF_8));
         for (int i = 0; i < fileContent.size(); i++) {
             if (fileContent.get(i).startsWith(String.valueOf(ch_id))) {
-                result =  fileContent.get(i);
+                result = fileContent.get(i);
                 break;
             }
         }
         return result;
     }
+
     /*метод добавляет элементы в бд*/
-    public void  add(Car vehicle_obj , Dps dps_obj) throws IOException {
-        this.count+=1;
-        this.file.write(this.show_count() +" "+ vehicle_obj.ToString() + " " + dps_obj.show_dps_id() + " " + dps_obj.pass(vehicle_obj) + "\n");
+    public void add(Car vehicle_obj, Dps dps_obj) throws IOException {
+        this.count += 1;
+        this.file.write(this.show_count() + " brand " + vehicle_obj.ToString() +
+                " dps_id " + dps_obj.show_dps_id() + " status " + dps_obj.pass(vehicle_obj) + " radio " + "\n");
     }
-    public void  add(Truck vehicle_obj , Dps dps_obj) throws IOException {
-        this.count+=1;
-        this.file.write(this.show_count() +" "+ vehicle_obj.ToString() + " " + dps_obj.show_dps_id() + " " + dps_obj.pass(vehicle_obj) + "\n");
+
+    public void add(Truck vehicle_obj, Dps dps_obj) throws IOException {
+        this.count += 1;
+        this.file.write(this.show_count() + " brand " + vehicle_obj.ToString() +
+                " dps_id" + dps_obj.show_dps_id() + " status " + dps_obj.pass(vehicle_obj) +
+                " height " + vehicle_obj.show_height() + " weight " + vehicle_obj.show_weight() + "\n");
     }
+
     /*метод меняет элементы*/
     public void change(int ch_id, String change_obj) throws IOException {
 
@@ -78,6 +84,7 @@ public class DbManager {
         }
         Files.write(Path.of(this.file.show_path()), fileContent, StandardCharsets.UTF_8);
     }
+
     /*метод удаляет элементы*/
     public void del(int del_id) throws IOException {
         List<String> fileContent = new ArrayList<>(Files.readAllLines(Path.of(this.file.show_path()), StandardCharsets.UTF_8));
@@ -94,14 +101,14 @@ public class DbManager {
         Scanner file;
         PrintWriter writer;
         file = new Scanner(new File(this.file.show_path()));
-        File new_file = new File( (this.file.show_path().substring(0, this.file.show_path().length() - 4)+"_copy.txt"));
+        File new_file = new File((this.file.show_path().substring(0, this.file.show_path().length() - 4) + "_copy.txt"));
         if (new_file.exists()) {
             System.out.println("Ошибка");
 
         } else {
             if (new_file.createNewFile()) {
                 System.out.println("Создана ");
-                writer = new PrintWriter(this.file.show_path().substring(0, this.file.show_path().length() - 4)+"_copy.txt");
+                writer = new PrintWriter(this.file.show_path().substring(0, this.file.show_path().length() - 4) + "_copy.txt");
 
 
                 while (file.hasNext()) {

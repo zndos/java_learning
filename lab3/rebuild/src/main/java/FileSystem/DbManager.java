@@ -1,5 +1,6 @@
 package FileSystem;
 
+import com.google.gson.Gson;
 import road_transp_control.Dps;
 import transport.Car;
 import transport.Truck;
@@ -58,18 +59,74 @@ public class DbManager {
         return result;
     }
 
-    /*метод добавляет элементы в бд*/
-    public void add(Car vehicle_obj, Dps dps_obj) throws IOException {
-        this.count += 1;
-        this.file.write(this.show_count() + " brand " + vehicle_obj.ToString() +
-                " dps_id " + dps_obj.show_dps_id() + " status " + dps_obj.pass(vehicle_obj) + " radio " + "\n");
+
+
+    public Dps dps_get(int id) throws IOException {
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(Path.of(this.file.show_path()), StandardCharsets.UTF_8));
+        String new_str = "";
+        for (int i = 0; i < fileContent.size(); i++) {
+            if (fileContent.get(i).startsWith(String.valueOf(id))) {
+                String str = fileContent.get(i);
+
+                for (int j = 2; j < str.length(); j++) {
+                    new_str += str.charAt(j);
+                }
+                break;
+            }
+        }
+        Gson gson = new Gson();
+        Dps dps_obj = gson.fromJson(new_str, Dps.class);
+        return dps_obj;
+
     }
 
-    public void add(Truck vehicle_obj, Dps dps_obj) throws IOException {
+
+    public Vehicle veh_get(int type, int id) throws IOException {
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(Path.of(this.file.show_path()), StandardCharsets.UTF_8));
+        String new_str = "";
+        for (int i = 0; i < fileContent.size(); i++) {
+            if (fileContent.get(i).startsWith(String.valueOf(id))) {
+                String str = fileContent.get(i);
+                for (int j = 2; j < str.length(); j++) {
+                    new_str += str.charAt(j);
+                }
+            }
+        }
+        Gson gson = new Gson();
+
+        if (type==0) {
+            Car car = gson.fromJson(new_str, Car.class);
+            return car;
+        }else {
+            Truck truck = gson.fromJson(new_str, Truck.class);
+            return truck;
+        }
+
+    }
+
+
+    /*метод добавляет элементы в бд*/
+
+    public void add(Dps dps) throws IOException {
         this.count += 1;
-        this.file.write(this.show_count() + " brand " + vehicle_obj.ToString() +
-                " dps_id" + dps_obj.show_dps_id() + " status " + dps_obj.pass(vehicle_obj) +
-                " height " + vehicle_obj.show_height() + " weight " + vehicle_obj.show_weight() + "\n");
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(dps);
+        this.file.write(this.count+" "+jsonStr+"\n");
+    }
+
+    public void add(Car vehicle_obj) throws IOException {
+        this.count += 1;
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(vehicle_obj);
+        this.file.write(this.count+" "+jsonStr+"\n");
+
+
+    }
+
+    public void add(Truck vehicle_obj) throws IOException {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(vehicle_obj);
+        this.file.write(this.count+" "+jsonStr+"\n");
     }
 
     /*метод меняет элементы*/
@@ -95,7 +152,7 @@ public class DbManager {
                 break;
             }
         }
-
+    //Тут я передвигаю строки чтобы было красиво
         Files.write(Path.of(this.file.show_path()), fileContent, StandardCharsets.UTF_8);
 
         Scanner file;
@@ -128,4 +185,9 @@ public class DbManager {
             }
         }
     }
+
+
+
+
 }
+

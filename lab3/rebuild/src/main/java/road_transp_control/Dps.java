@@ -27,6 +27,19 @@ public class Dps {
         this.allowable_weight=weight;
     }
 
+    public void setDps_id(int id){
+        this.dps_id=id;
+
+    }
+    public void setAllowable_speed(int speed){
+        this.allowable_speed=speed;
+    }
+    public void setAllowable_height(int height){
+        this.allowable_height=height;
+    }
+    public void setAllowable_weight(int weight){
+        this.allowable_weight=weight;
+    }
 
 
 
@@ -53,6 +66,19 @@ public class Dps {
 
     public int show_dps_id(){
         return this.dps_id;
+    }
+    public int show_max_speed(){
+        return this.allowable_speed;
+    }
+    public int show_height(){
+        return this.allowable_height;
+    }
+    public int show_weight(){
+        return this.allowable_weight;
+    }
+    public String ToString(){
+        String result = this.dps_id +" "+this.allowable_speed+" "+this.allowable_height+ " "+this.allowable_weight  ;
+        return result;
     }
 
 }

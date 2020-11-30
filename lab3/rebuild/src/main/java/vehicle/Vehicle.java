@@ -9,7 +9,13 @@ public abstract class Vehicle {
         this.brend = "BMW";
         this.max_speed = 100;
     }
-
+    public void  setBrend(String brend){
+        this.brend = brend;
+    }
+    public void setMaxSpeed(int max_speed)
+    {
+        this.max_speed = max_speed;
+    }
     protected Vehicle(String brend, int max_speed ){
         this.brend = brend;
         this.max_speed = max_speed;
@@ -26,6 +32,7 @@ public abstract class Vehicle {
         /*метод показывающий что автомобиль едет*/
         System.out.println("Brrrrr ,i am moving!");
     }
+
 
     public String ToString(){
         String result = this.brend +" "+this.max_speed ;

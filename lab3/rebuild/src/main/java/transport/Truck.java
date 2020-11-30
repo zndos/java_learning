@@ -19,6 +19,13 @@ public class Truck extends Vehicle{
         this.weight = weight;
     }
 
+    public void setHeight(int height){
+        this.height = height;
+    }
+    public void setWeight(int weight){
+        this.weight = weight;
+    }
+
     public int show_height() {
         return this.height;
     }

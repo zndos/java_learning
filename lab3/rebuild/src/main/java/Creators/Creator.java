@@ -21,7 +21,7 @@ public class Creator {
         Scanner radio_scn = new Scanner(System.in);
         String radio = radio_scn.nextLine();
 
-        return new Car(brend,speed,radio,1);
+        return new Car(brend,speed,radio);
 
     }
 
@@ -48,9 +48,10 @@ public class Creator {
 
     public Dps dpsCreator(){
         //TODO: try catch and error logs
-//        System.out.print("Введи id поста дпс: ");
-//        Scanner id_scn = new Scanner(System.in);
-//        int id = id_scn.nextInt();
+
+        System.out.print("Введи id поста дпс: ");
+        Scanner id_scn = new Scanner(System.in);
+        int id = id_scn.nextInt();
 
         System.out.print("Введи максимальную  допустимую скорость транспортного средства: ");
         Scanner speed_scn = new Scanner(System.in);
@@ -64,7 +65,7 @@ public class Creator {
         Scanner weight_scn = new Scanner(System.in);
         int weight = weight_scn.nextInt();
 
-        return new Dps(0,speed,height,weight);
+        return new Dps(id,speed,height,weight);
     }
 
 

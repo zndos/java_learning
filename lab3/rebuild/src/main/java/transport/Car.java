@@ -13,10 +13,12 @@ public class Car extends Vehicle {
         super();
         this.fm = new Radio();
     }
-
-    public Car(String brend, int max_speed,String current_station ,int status){
+    public void setRadio(String current_station){
+        this.fm = new Radio(current_station);
+    }
+    public Car(String brend, int max_speed,String current_station ){
         super(brend,max_speed);
-        this.fm = new Radio(current_station,status);
+        this.fm = new Radio(current_station);
     }
 
     public String show_fm(){

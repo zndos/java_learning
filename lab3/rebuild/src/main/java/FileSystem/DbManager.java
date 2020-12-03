@@ -29,7 +29,6 @@ public class DbManager {
                 this.count = file.count();
             } else {
                 if (new_file.createNewFile()) {
-                    file.write("id brand speed radio/height/weight status \n");
                     System.out.println("Создана база данных");
                     this.count = 0;
                 } else {
@@ -105,6 +104,7 @@ public class DbManager {
     }
 
 
+
     /*метод добавляет элементы в бд*/
 
     public void add(Dps dps) throws IOException {
@@ -124,6 +124,7 @@ public class DbManager {
     }
 
     public void add(Truck vehicle_obj) throws IOException {
+        this.count += 1;
         Gson gson = new Gson();
         String jsonStr = gson.toJson(vehicle_obj);
         this.file.write(this.count+" "+jsonStr+"\n");

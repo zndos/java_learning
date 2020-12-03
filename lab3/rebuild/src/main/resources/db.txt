@@ -1,3 +1,0 @@
-1
-2{"dps_id":0,"allowable_speed":100,"allowable_height":23,"allowable_weight":32}
-2 {"height":32,"weight":32,"brend":"sad","max_speed":213}
